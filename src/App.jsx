@@ -6,14 +6,12 @@ function App() {
   const [filtro, setFiltro] = useState("");
 
   return (
-    <>
-      <div className="d-flex" style={{ minHeight: "100vh" }}>
-        <FiltrarDesembarques filtro={filtro} onFiltroChange={setFiltro} />
-        <main className="flex-grow-1 p-4">
-          <ListaDesembarques filtro={filtro} />
-        </main>
-      </div>
-    </>
+    <div className="d-flex" style={{ minHeight: "100vh" }}>
+      <FiltrarDesembarques filtro={filtro} onFiltroChange={setFiltro} />
+      <main className="flex-grow-1 p-4">
+        <ListaDesembarques filtro={filtro} />
+      </main>
+    </div>
   );
 }
 

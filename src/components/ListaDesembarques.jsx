@@ -32,7 +32,7 @@ function ListaDesembarques({ filtro }) {
   if (cargando) {
     return (
       <div className="d-flex align-items-center gap-2 text-muted mt-4">
-        <div className="spinner-border spinner-border-sm" role="status" />
+        <div className="spinner-border spinner-border-sm" role="output" />
         <span>Cargando desembarques...</span>
       </div>
     );
@@ -66,7 +66,7 @@ function ListaDesembarques({ filtro }) {
     <>
       <h1>Desembarques</h1>
       <table className="table table-hover table-bordered align-middle">
-        <thead className="table-dark">
+        <thead className="table-primary">
           <tr>
             <th>ID</th>
             <th>Especie</th>

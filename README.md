@@ -1,16 +1,19 @@
-# React + Vite
+Elementos de React utilizados:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Componentes (2):
+1.- FiltrarDesembarque: Se encuentra a la izquierda en el panel y sirve para filtrar los desembarques por especie o estado
+2.- ListaDesembarque: Es el componente principal y es el que muestra la lista de desembarques
 
-Currently, two official plugins are available:
+useState (5):
+1.- error: se utiliza para que el mensaje del error sea dinámico
+2.- desembarque: se utiliza para recibir los datos del JSON
+3.- cargando: se utiliza para asignar el mensaje de cargando
+4.- prioritarios: se utiliza para modificar la lista de los desembarques prioritarios
+5.- filtro: se utiliza para usar dinámicamente el valor que se encuentra en el input de filtro
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+useEffect (1):
+1.- obtenerDesembarques: se utiliza como función asincrónica para obtener los datos del servidor JSON
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+eventos (2):
+1.- onChange: se utiliza para detectar el cambio en la casilla de input
+2.- onClick: se utiliza para detectar la acción del botón priorizar
