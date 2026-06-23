@@ -4,11 +4,15 @@ function ListaDesembarques({ filtro }) {
   const [desembarques, setDesembarques] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const [prioritarios, setPrioritarios] = useState(() => {
+    const guardados = localStorage.getItem("prioritarios");
+    return guardados ? JSON.parse(guardados) : [];
+  });
 
   useEffect(() => {
     async function obtenerDesembarques() {
       try {
-        const res = await fetch("http://localhost:3001/desembarques");
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/desembarques`);
 
         if (!res.ok) {
           throw new Error(`Error del servidor: ${res.status}`);
@@ -42,6 +46,15 @@ function ListaDesembarques({ filtro }) {
     );
   }
 
+  function agregarPrioritario(id) {
+    setPrioritarios((prio) => {
+      if (prio.includes(id)) return prio;
+      const actualizado = [...prio, id];
+      localStorage.setItem("prioritarios", JSON.stringify(actualizado));
+      return actualizado;
+    });
+  }
+
   const texto = filtro.toLowerCase();
   const resultado = desembarques.filter(
     (lote) =>
@@ -61,6 +74,7 @@ function ListaDesembarques({ filtro }) {
             <th>Fecha</th>
             <th>Kilos</th>
             <th>Estado</th>
+            <th>Prioridad</th>
           </tr>
         </thead>
         <tbody>
@@ -73,11 +87,19 @@ function ListaDesembarques({ filtro }) {
                 <td>{lote.fecha}</td>
                 <td>{lote.kilos}</td>
                 <td>{lote.estado}</td>
+                <td>
+                  <button
+                    className={"btn btn-sm btn-warning"}
+                    onClick={() => agregarPrioritario(lote.id)}
+                  >
+                    Priorizar
+                  </button>
+                </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={6} className="text-center text-muted py-4">
+              <td colSpan={7} className="text-center text-muted py-4">
                 No se encontraron lotes para "{filtro}"
               </td>
             </tr>
