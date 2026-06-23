@@ -80,7 +80,12 @@ function ListaDesembarques({ filtro }) {
         <tbody>
           {resultado.length > 0 ? (
             resultado.map((lote) => (
-              <tr key={lote.id}>
+              <tr
+                key={lote.id}
+                className={
+                  prioritarios.includes(lote.id) ? "table-success" : ""
+                }
+              >
                 <td>{lote.id}</td>
                 <td>{lote.especie}</td>
                 <td>{lote.embarcacion}</td>
@@ -89,10 +94,12 @@ function ListaDesembarques({ filtro }) {
                 <td>{lote.estado}</td>
                 <td>
                   <button
-                    className={"btn btn-sm btn-warning"}
+                    className={`btn btn-sm ${prioritarios.includes(lote.id) ? "btn-success" : "btn-outline-success"}`}
                     onClick={() => togglePrioritario(lote.id)}
                   >
-                    Priorizar
+                    {prioritarios.includes(lote.id)
+                      ? "Despriorizar"
+                      : "Priorizar"}
                   </button>
                 </td>
               </tr>
