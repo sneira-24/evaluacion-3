@@ -17,3 +17,24 @@ useEffect (1):
 eventos (2):
 1.- onChange: se utiliza para detectar el cambio en la casilla de input
 2.- onClick: se utiliza para detectar la acción del botón priorizar
+
+Sugerencias de Claude AI:
+
+prompt: de qué manera puedo sanitizar la entrada para que no haya inyección de código?
+respuesta:
+
+function sanitizar(valor) {
+return valor.replace(/[<>"'`=;()/\\]/g, "");
+}
+
+por qué no se aplicó: la descarté porque la misma IA me explicó que React ya escapa el contenido que renderiza en el DOM por defecto, así que una inyección directa desde este input no llegaría a ejecutarse.
+
+Análisis con SonarQube:
+
+Hallazgos:
+
+1.- Use <output> instead of the "status" role to ensure accessibility across all devices.
+Corrección aplicada: se cambió la linea 35 de "ListaDesembarques" para que tenga mejor accesibilidad.
+
+2.- A fragment with only one child is redundant.
+Corección aplicada: se removieron los <></> (fragmento) ya que no eran necesarios al tener un <div> y un <main>.
