@@ -1,4 +1,4 @@
-function ListaDesembarques() {
+function ListaDesembarques({ filtro }) {
   const desembarques = [
     {
       id: "001",
@@ -42,6 +42,13 @@ function ListaDesembarques() {
     },
   ];
 
+  const texto = filtro.toLowerCase();
+  const resultado = desembarques.filter(
+    (lote) =>
+      lote.especie.toLowerCase().includes(texto) ||
+      lote.estado.toLowerCase().includes(texto),
+  );
+
   return (
     <>
       <h1>Desembarques</h1>
@@ -54,23 +61,27 @@ function ListaDesembarques() {
             <th>Fecha</th>
             <th>Kilos</th>
             <th>Estado</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
-          {desembarques.map((lote) => (
-            <tr key={lote.id}>
-              <td>{lote.id}</td>
-              <td>{lote.especie}</td>
-              <td>{lote.embarcacion}</td>
-              <td>{lote.fecha}</td>
-              <td>{lote.kilos}</td>
-              <td>{lote.estado}</td>
-              <td>
-                <button onclick="">Priorizar</button>
+          {resultado.length > 0 ? (
+            resultado.map((lote) => (
+              <tr key={lote.id}>
+                <td>{lote.id}</td>
+                <td>{lote.especie}</td>
+                <td>{lote.embarcacion}</td>
+                <td>{lote.fecha}</td>
+                <td>{lote.kilos}</td>
+                <td>{lote.estado}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={6} className="text-center text-muted py-4">
+                No se encontraron lotes para "{filtro}"
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </>
