@@ -1,46 +1,46 @@
+import { useState, useEffect } from "react";
+
 function ListaDesembarques({ filtro }) {
-  const desembarques = [
-    {
-      id: "001",
-      especie: "Anchoveta",
-      embarcacion: "Doña Rosa",
-      fecha: "2025-06-10",
-      kilos: 12400,
-      estado: "Pendiente",
-    },
-    {
-      id: "002",
-      especie: "Sardina",
-      embarcacion: "San Borondón",
-      fecha: "2025-06-10",
-      kilos: 8750,
-      estado: "Procesado",
-    },
-    {
-      id: "003",
-      especie: "Jurel",
-      embarcacion: "El Vikingo",
-      fecha: "2025-06-11",
-      kilos: 21300,
-      estado: "Rechazado",
-    },
-    {
-      id: "004",
-      especie: "Anchoveta",
-      embarcacion: "Doña Rosa",
-      fecha: "2025-06-11",
-      kilos: 9200,
-      estado: "Procesado",
-    },
-    {
-      id: "005",
-      especie: "Sardina",
-      embarcacion: "Talcahuano I",
-      fecha: "2025-06-12",
-      kilos: 15600,
-      estado: "Pendiente",
-    },
-  ];
+  const [desembarques, setDesembarques] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function obtenerDesembarques() {
+      try {
+        const res = await fetch("http://localhost:3001/desembarques");
+
+        if (!res.ok) {
+          throw new Error(`Error del servidor: ${res.status}`);
+        }
+
+        const datos = await res.json();
+        setDesembarques(datos);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setCargando(false);
+      }
+    }
+    obtenerDesembarques();
+  }, []);
+
+  if (cargando) {
+    return (
+      <div className="d-flex align-items-center gap-2 text-muted mt-4">
+        <div className="spinner-border spinner-border-sm" role="status" />
+        <span>Cargando desembarques...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="alert alert-danger mt-4" role="alert">
+        <strong>No se pudo conectar al servidor.</strong> {error}
+      </div>
+    );
+  }
 
   const texto = filtro.toLowerCase();
   const resultado = desembarques.filter(
