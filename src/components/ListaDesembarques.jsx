@@ -46,13 +46,13 @@ function ListaDesembarques({ filtro }) {
     );
   }
 
-  function agregarPrioritario(id) {
-    setPrioritarios((prio) => {
-      if (prio.includes(id)) return prio;
-      const actualizado = [...prio, id];
-      localStorage.setItem("prioritarios", JSON.stringify(actualizado));
-      return actualizado;
-    });
+  function togglePrioritario(id) {
+    const actualizado = prioritarios.includes(id)
+      ? prioritarios.filter((p) => p !== id)
+      : [...prioritarios, id];
+
+    setPrioritarios(actualizado);
+    localStorage.setItem("prioritarios", JSON.stringify(actualizado));
   }
 
   const texto = filtro.toLowerCase();
@@ -90,7 +90,7 @@ function ListaDesembarques({ filtro }) {
                 <td>
                   <button
                     className={"btn btn-sm btn-warning"}
-                    onClick={() => agregarPrioritario(lote.id)}
+                    onClick={() => togglePrioritario(lote.id)}
                   >
                     Priorizar
                   </button>
